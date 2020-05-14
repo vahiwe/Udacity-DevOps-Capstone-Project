@@ -39,4 +39,4 @@ EXPOSE 8000
 # CMD ["runserver", "0.0.0.0:8000"]
 
 # define the default command to run when starting the container using gunicorn
-CMD ["gunicorn", "-k", "gevent", "--bind", ":8000", "-t", "60", "TwitterAnalysis.wsgi:application"]
+CMD ["gunicorn", "-k", "gevent", "-w", "2", "--bind", ":8000", "-t", "60", "TwitterAnalysis.wsgi:application"]
