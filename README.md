@@ -12,7 +12,7 @@ This project fulfills the requirements of the Udacity DevOps Capstone Project. A
 
 __`❍ source ~/.bash_profile `__
 
-**4)** With AWS CLI installed you can setup it up as the Jenkins User. Follow this [tutorial](https://docs.aws.amazon.com/systems-manager/latest/userguide/automation-jenkins.html) to see how. This is to allow you run aws commands in your pipeline without getting errors. Jenkins Plugins are available for using AWS but i found out that i still had issues while running the pipeline on some stages.
+**4)** With AWS CLI installed you can setup it up as the Jenkins User. Follow this [tutorial](https://docs.aws.amazon.com/systems-manager/latest/userguide/automation-jenkins.html) to see how. This is to allow you run aws commands in your pipeline without getting errors. Also set up aws credentials on Jenkins dashboard.
 
 **5)** You'll need to add the jenkins user to the sudoer group to enable it run ansible-playbooks. Follow this [tutorial](https://embeddedartistry.com/blog/2017/11/16/jenkins-running-steps-as-sudo/) to see how to. Note: This is not best practices standard.
 
@@ -28,7 +28,7 @@ __`❍ source ~/.bash_profile `__
 
 **11)** You might get blocked by RBAC policies while trying to access the cluster. Basically, RBAC policies set to restrict the resources you use and limits a few of your action. Visit this [link](https://www.edureka.co/community/34714/code-error-403-when-trying-to-access-kubernetes-cluster) to see how to resolve this. 
 
-**12)** A command line tool 'sed' is used in updating the kubernetes configuration file in other to force the pods to update with the new image. The reason for this is that Kubernetes (wrongly) considers Docker tags as immutable (i.e., once a tag is set, it is never changed).   
+**12)** A command line tool 'sed' is used in updating the kubernetes configuration file in other to force the pods to update with the new image. The reason for this is that Kubernetes (wrongly) considers Docker tags as immutable (i.e., once a tag is set, it is never changed). The rolling update is also activated by the change in image name.   
 
 ## :page_with_curl:  _Local Docker and Kubernetes Setup_
 
