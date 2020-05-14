@@ -26,6 +26,6 @@ lint:
 	# hadolint Dockerfile
 	# This is a linter for Python source code linter: https://www.pylint.org/
 	# This should be run from inside a virtualenv
-	pylint --disable=R,C,W0212,W1203,W0613,W1401,W0612,W0611,W171 sentiment/*.py TwitterAnalysis/*.py model_setup/*.py
+	pylint --disable=R,C,W0212,W1203,W0613,W1401,W0612,W0611,W:171 sentiment/*.py TwitterAnalysis/*.py model_setup/*.py
 
 all: install lint test
