@@ -35,7 +35,7 @@ pipeline {
         stage('Configure and Build Kubernetes Cluster'){
             steps {
                 withAWS(region:'us-west-2',credentials:'aws') {
-                    sh 'aws eks --region us-west-2 update-kubeconfig --name udacity-project'                    
+                    sh 'sudo aws eks --region us-west-2 update-kubeconfig --name udacity-project'                    
                 }
             }
         }
