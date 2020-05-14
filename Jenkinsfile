@@ -11,27 +11,27 @@ pipeline {
                   sh 'make lint'
               }
          }
-         stage('Building image') {
-            steps{
-                script {
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
-                }
-            }
-        }
-        stage('Upload Image to Docker hub') {
-            steps{
-                script {
-                    docker.withRegistry( '', registryCredential ) {
-                        dockerImage.push()
-                    }
-                }
-            }
-        }
-        stage('Remove Unused docker image') {
-            steps{
-                sh "docker rmi $registry:$BUILD_NUMBER"
-            }
-        }
+        //  stage('Building image') {
+        //     steps{
+        //         script {
+        //             dockerImage = docker.build registry + ":$BUILD_NUMBER"
+        //         }
+        //     }
+        // }
+        // stage('Upload Image to Docker hub') {
+        //     steps{
+        //         script {
+        //             docker.withRegistry( '', registryCredential ) {
+        //                 dockerImage.push()
+        //             }
+        //         }
+        //     }
+        // }
+        // stage('Remove Unused docker image') {
+        //     steps{
+        //         sh "docker rmi $registry:$BUILD_NUMBER"
+        //     }
+        // }
         stage('Configure and Build Kubernetes Cluster'){
             steps {
                 sh 'ansible-playbook ./playbooks/kubernetes-configure.yml'                    

@@ -76,5 +76,10 @@
                 --managed
               become: no
             - name: Update kubeconfig
-              command: sudo aws eks --region us-west-2 update-kubeconfig --name udacity-project
+              command: aws eks --region us-west-2 update-kubeconfig --name udacity-project
           when: "existing_clusters.stdout.find('No clusters found') != -1"
+        - name: Update kubeconfig
+          block:
+            - name: Update kubeconfig
+              command: aws eks --region us-west-2 update-kubeconfig --name udacity-project
+        

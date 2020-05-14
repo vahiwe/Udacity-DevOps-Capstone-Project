@@ -22,7 +22,7 @@ spec:
       containers:
         - name: capstone
           imagePullPolicy: Always
-          image: IMAGE
+          image: vahiwe/capstone:6
           resources:
             requests:
               cpu: "50m"
