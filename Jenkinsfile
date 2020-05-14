@@ -35,18 +35,25 @@ pipeline {
         stage('Configure and Build Kubernetes Cluster'){
             steps {
                 withAWS(region:'us-west-2',credentials:'aws') {
-                    sh 'ansible-playbook ./playbooks/kubernetes-configure.yml'                    
+                    sh 'aws eks --region us-west-2 update-kubeconfig --name udacity-project'                    
                 }
             }
         }
-        stage('Deploy Updated Image to Cluster'){
-            steps {
-                sh '''
-                    export IMAGE="$registry:$BUILD_NUMBER"
-                    sed -ie "s~IMAGE~$IMAGE~g" kubernetes/container.yml
-                    sudo kubectl apply -f ./kubernetes
-                    '''
-            }
-        }
+        // stage('Configure and Build Kubernetes Cluster'){
+        //     steps {
+        //         withAWS(region:'us-west-2',credentials:'aws') {
+        //             sh 'ansible-playbook ./playbooks/kubernetes-configure.yml'                    
+        //         }
+        //     }
+        // }
+        // stage('Deploy Updated Image to Cluster'){
+        //     steps {
+        //         sh '''
+        //             export IMAGE="$registry:$BUILD_NUMBER"
+        //             sed -ie "s~IMAGE~$IMAGE~g" kubernetes/container.yml
+        //             sudo kubectl apply -f ./kubernetes
+        //             '''
+        //     }
+        // }
     }
 }
