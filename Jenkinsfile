@@ -33,8 +33,8 @@ pipeline {
         //     }
         // }
         stage('Configure and Build Kubernetes Cluster'){
-            withAWS(region:'us-west-2',credentials:'aws') {
-                steps {
+            steps {
+                withAWS(region:'us-west-2',credentials:'aws') {
                     sh 'ansible-playbook ./playbooks/kubernetes-configure.yml'                    
                 }
             }
