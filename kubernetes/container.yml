@@ -24,11 +24,11 @@ spec:
           imagePullPolicy: Always
           image: IMAGE
           ports:
-            - containerPort: 8000
+            - containerPort: 80
           readinessProbe:
               httpGet:
                 path: /
-                port: 8000
+                port: 80
               periodSeconds: 10
               timeoutSeconds: 5
               successThreshold: 1

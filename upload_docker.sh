@@ -5,13 +5,13 @@
 
 # Step 1:
 # Create dockerpath
-dockerpath="vahiwe/djangoapp"
+dockerpath="vahiwe/apacheapp"
 
 # Step 2:  
 # Authenticate & tag
 echo "Docker ID and Image: $dockerpath"
 docker login
-docker tag djangoapp $dockerpath:latest
+docker tag apacheapp $dockerpath:latest
 
 # Step 3:
 # Push image to a docker repository
