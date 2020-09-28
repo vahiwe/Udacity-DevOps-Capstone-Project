@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        registry = "vahiwe/capstone"
+        registry = "vahiwe/staging"
         registryCredential = 'dockerhub'
         dockerImage = ''
     }
@@ -32,17 +32,10 @@ pipeline {
                 sh "docker rmi $registry:$BUILD_NUMBER"
             }
         }
-        stage('Configure and Build Kubernetes Cluster'){
-            steps {
-                withAWS(region:'us-west-2',credentials:'aws') {
-                    sh 'ansible-playbook ./playbooks/kubernetes-configure.yml'                    
-                }
-            }
-        }
         stage('Update Kube Config'){
             steps {
-                withAWS(region:'us-west-2',credentials:'aws') {
-                    sh 'sudo aws eks --region us-west-2 update-kubeconfig --name udacity-project'                    
+                withAWS(region:'us-east-1',credentials:'aws') {
+                    sh 'aws eks --region us-east-1 update-kubeconfig --name stage-cluster'                    
                 }
             }
         }
@@ -51,7 +44,7 @@ pipeline {
                 sh '''
                     export IMAGE="$registry:$BUILD_NUMBER"
                     sed -ie "s~IMAGE~$IMAGE~g" kubernetes/container.yml
-                    sudo kubectl apply -f ./kubernetes
+                    kubectl apply -f ./kubernetes
                     '''
             }
         }

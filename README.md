@@ -18,7 +18,7 @@ __`❍ source ~/.bash_profile `__
 
 **6)** You might need to [disable password request](https://stackoverflow.com/questions/17940612/authentication-error-in-jenkins-on-using-sudo) for the jenkins user for your pipeline to run smoothly. Note: This is not best practices standard.
 
-**7)** Create [swap space](https://medium.com/@vahiwe/setting-up-openvino-in-the-cloud-b99599f157eb) on your server. I got an out of memory error after running ansible multiple times.
+**7)** Create [swap space](https://medium.com/@vahiwe/setting-up-openvino-in-the-cloud-b99599f157eb) on your server. I got an out of memory error after running ansible multiple times. This is only necessary if the `ansible-setup` branch is used.
 
 **8)** One of the stages in the pipeline requires Docker login information. You can set this up in Jenkins credentials. Save it as the same name as the registryCredentials in the Jenkinsfile. Also edit the registry in the Jenkinsfile to match your repo on Docker hub.
 

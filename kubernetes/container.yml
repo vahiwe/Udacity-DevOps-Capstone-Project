@@ -1,9 +1,9 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: capstone-deployment
+  name: staging-deployment
   labels:
-    app: capstone
+    app: staging
 spec:
   strategy:
     type: RollingUpdate
@@ -13,14 +13,14 @@ spec:
   replicas: 4
   selector:
     matchLabels:
-      app: capstone
+      app: staging
   template:
     metadata:
       labels:
-        app: capstone
+        app: staging
     spec:
       containers:
-        - name: capstone
+        - name: staging
           imagePullPolicy: Always
           image: IMAGE
           ports:
