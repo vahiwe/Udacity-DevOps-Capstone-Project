@@ -2,6 +2,26 @@
 
 This project fulfills the requirements of the Udacity DevOps Capstone Project. A web app is containerized and deployed to a kubernetes cluster. This webapp runs a sentiment analysis on tweets of a Twitter handle and gives feedback on sentiments over a period of time.
 
+## :page_with_curl:  _Information on Some of the files_
+
+**1)** `initial-setup.sh` - This file is the first file to look at when setting up this project. It installs the required packakages to make this project work such as Docker, Jenkins, Kubectl, eksctl, hadolint etc. Refer to the Medium article to see how and when it is used.
+
+**2)** `kubernetes/` - This folder contains the kubernetes resource configuration files that will deploy the application image on AWS EKS using `kubectl` once configured properly.
+
+**3)** `playbooks/` - This folder contains an ansible playbook. The ansible playbook installs [eksctl](https://eksctl.io/), [aws-iam-authenticator](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html) and [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) on your jenkins server. These tools are needed for the creation, deployment and management of your cluster. The ansible script also goes ahead to create the cluster.
+
+**3)** `Jenkinsfile` - This file has a `.txt` extension but that should be removed so that the pipeline will run. It was only added to prevent Multibranch build when connecting this repo to `Blue Ocean` on `Jenkins`. This file contains the definition of the stages in the pipeline. The stages in this project's pipeline are `Lint files`, `Building image`, `Upload Image to Docker hub`, `Remove Unused docker image`, `Configure and Build Kubernetes Cluster`, `Update Kube Config` and `Deploy Updated Image to Cluster`.
+
+**4)** `Makefile` - This file contains shell commands that can be executed using the `Make` linux tool.
+
+**5)** `Dockerfile` - This file contains all the commands needed to assemble the app image.
+
+**6)** `run_docker.sh` - This file contains the shell commands needed to build the image on docker locally and also run a container.
+
+**7)** `run_kubernetes.sh` - This file contains the shell commands needed to deploy the app in a kubernetes cluster running locally.
+
+**8)** `upload_docker.sh` - This file contains the shell commands needed to upload the docker image to docker hub.
+
 ## :page_with_curl:  _Deploying on Amazon EKS using a CI/CD pipeline_
 
 **1)** A Jenkins server needs to be provisioned to setup your CI/CD pipeline. You can follow this [tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-jenkins-on-ubuntu-18-04) to setup Jenkins on an Ubuntu Server. 
