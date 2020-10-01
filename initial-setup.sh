@@ -4,7 +4,7 @@
 sudo apt-get update && sudo apt-get -y upgrade
 
 # Install Some Necessary Packages
-sudo apt-get -y install python3.6 default-jdk python3-venv unzip make tidy pylint
+sudo apt-get -y install default-jdk unzip make tidy
 
 # Install and Setup Docker
 sudo apt-get -y remove docker docker-engine docker.io containerd runc

@@ -1,6 +1,24 @@
 # Capstone Project for Udacity DevOps Nanodegree
 
-This project fulfills the requirements of the Udacity DevOps Capstone Project. A web app is containerized and deployed to a kubernetes cluster. This webapp runs a sentiment analysis on tweets of a Twitter handle and gives feedback on sentiments over a period of time.
+This project fulfills the requirements of the Udacity DevOps Capstone Project. A web app is containerized and deployed to a kubernetes cluster. This webapp runs a simple apache site.
+
+## :page_with_curl:  _Information on Some of the files_
+
+**1)** `initial-setup.sh` - This file is the first file to look at when setting up this project. It installs the required packakages to make this project work such as Docker, Jenkins, Kubectl, eksctl, hadolint etc. Refer to the Medium article to see how and when it is used.
+
+**2)** `kubernetes/` - This folder contains the kubernetes resource configuration files that will deploy the application image on AWS EKS using `kubectl` once configured properly.
+
+**3)** `Jenkinsfile` - This file contains the definition of the stages in the pipeline. The stages in this project's pipeline are `Lint files`, `Building image`, `Upload Image to Docker hub`, `Remove Unused docker image`, `Update Kube Config` and `Deploy Updated Image to Cluster`.
+
+**4)** `Makefile` - This file contains shell commands that can be executed using the `Make` linux tool.
+
+**5)** `Dockerfile` - This file contains all the commands needed to assemble the app image.
+
+**6)** `run_docker.sh` - This file contains the shell commands needed to build the image on docker locally and also run a container.
+
+**7)** `run_kubernetes.sh` - This file contains the shell commands needed to deploy the app in a kubernetes cluster running locally.
+
+**8)** `upload_docker.sh` - This file contains the shell commands needed to upload the docker image to docker hub.
 
 ## :page_with_curl:  _Deploying on Amazon EKS using a CI/CD pipeline_
 
@@ -24,11 +42,9 @@ __`❍ source ~/.bash_profile `__
 
 **9)** Once all this is done you can start working on Jenkins. Install BlueOcean for a nice interface. Setup up your CI/CD pipeline and everything should run smoothly. Note your IAM user should have permissions to use EKS.
 
-**10)** The ansible playbook installs [eksctl](https://eksctl.io/), [aws-iam-authenticator](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html) and [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) on your jenkins server. These tools are needed for the creation, deployment and management of your cluster. The ansible script also goes ahead to create the cluster.
+**10)** You might get blocked by RBAC policies while trying to access the cluster. Basically, RBAC policies set to restrict the resources you use and limits a few of your action. Visit this [link](https://www.edureka.co/community/34714/code-error-403-when-trying-to-access-kubernetes-cluster) to see how to resolve this. 
 
-**11)** You might get blocked by RBAC policies while trying to access the cluster. Basically, RBAC policies set to restrict the resources you use and limits a few of your action. Visit this [link](https://www.edureka.co/community/34714/code-error-403-when-trying-to-access-kubernetes-cluster) to see how to resolve this. 
-
-**12)** A command line tool 'sed' is used in updating the kubernetes configuration file in other to force the pods to update with the new image. The reason for this is that Kubernetes (wrongly) considers Docker tags as immutable (i.e., once a tag is set, it is never changed). The rolling update is also activated by the change in image name.   
+**11)** A command line tool 'sed' is used in updating the kubernetes configuration file in other to force the pods to update with the new image. The reason for this is that Kubernetes (wrongly) considers Docker tags as immutable (i.e., once a tag is set, it is never changed). The rolling update is also activated by the change in image name.   
 
 ## :page_with_curl:  _Local Docker and Kubernetes Setup_
 
@@ -45,58 +61,5 @@ A script that deploys the Docker Image to a local Kubernetes Cluster is also ava
 __`❍ ./run_kubernetes.sh `__
 
 Please view the aforementioned scripts before running to understand the logic behind them.
-
-
-## :page_with_curl:  _Setup Instructions for local testing_
-
-**1)** Fire up your favourite console & clone this repo somewhere:
-
-__`❍ git clone https://github.com/vahiwe/TwitterAnalysis.git`__
-
-**2)** Enter this directory:
-
-__`❍ cd TwitterAnalysis/model_setup`__
-
-**3)** Install [python](https://www.python.org/) if not already installed and run this command to install python packages/dependencies:
-
-__`❍ pip install -e . `__
-
-**4)** Go back to previous directory:
-
-__`❍ cd .. `__
-
-**5)** Generate secret key for Django project [here](https://miniwebtool.com/django-secret-key-generator/) and input in `TwitterAnalysis/config.py` :
-
-``` 
-    KEY = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-```
-
-**6)** Get your [Twitter Developer](https://developer.twitter.com/) credentials and input in `sentiment/config.py` :
-```
-    consumer_key = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' 
-    consumer_secret = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-    access_token = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' 
-    access_token_secret = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' 
-```
-
-**7)** Install spacy language model:
-
-__`❍ python -m spacy download en `__
-
-**8)** Run to create migrations for changes:
-
-__`❍ python manage.py makemigrations`__
-
-**9)** Run to apply those changes to the database:
-
-__`❍ python manage.py migrate`__
-
-**10)** Start the server to view the webapp:
-
-__`❍ python manage.py runserver `__
-
-**11)** Open your browser and type in this URL to view the webapp:
-
-__`❍ http://127.0.0.1:8000/`__
 
 __*Happy developing!*__
